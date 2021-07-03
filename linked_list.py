@@ -47,6 +47,7 @@ class LinkedList:
         new_node.next_node = self.head
         self.head = new_node
     
+
     def search(self, key):
         '''
         Search for the first node containing data that matches the key
@@ -60,11 +61,64 @@ class LinkedList:
                 current = current.next_node
         return None
 
-    def verify(self, index):
-        if index is not None:
-            print(index)
+    # def verify(self, index):
+    #     if index is not None:
+    #         print(index)
+    #     else:
+    #         print('not found')
+
+    def insert(self, data, index):
+        '''
+        insert a new node containing data at index position
+        '''
+        if index == 0:
+            self.add(data)
+
+        if index > 0:
+            new = Node(data)
+            position = index
+            current = self.head
+
+            while position > 1:
+                current = Node.next_node
+                position -= 1
+
+            prev_node = current
+            next_node = current.next_node
+
+            prev_node.next_node = new
+            new.next_node = next_node
+
+    def remove(self, key):
+        current = self.head
+        previous = None
+        found = False
+
+        while current is not found:
+            if current.data == key and current is self.head:
+                found = True
+                self.head = current.next_node
+            elif current.data == key:
+                found = True
+                previous.next_node = current.next_node
+            else:
+                previous = current
+                current = current.next_node
+
+        return current
+
+    def node_at_index(self, index):
+        if index == 0:
+            return self.head 
         else:
-            print('not found')
+            current = self.head
+            position = 0
+
+            while position < index:
+                current = current.next_node
+                position += 1
+
+            return current
 
     def __repr__(self):
         nodes = []
@@ -82,13 +136,15 @@ class LinkedList:
         return '->'.join(nodes)
 
 
-l = LinkedList()
-N = Node(10)
-N2 = Node(20)
-l.head = N
-l.add(N2)
-l.add(30)
-search = l.search(10)
-#print(l)
-l.verify(search)
-
+# l = LinkedList()
+# N = Node(10)
+# N2 = Node(20)
+# l.head = N
+# l.add(N2)
+# l.add(30)
+# # search = l.search(10)
+# # print(search)
+# l.insert(15,1)
+# print(l)
+# l.remove(10)
+# print(l)
